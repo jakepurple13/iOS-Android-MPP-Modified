@@ -38,8 +38,13 @@ class ExampleUnitTest {
         val s1 = EpisodeApi(s.random())
         prettyLog(s1.description)*/
 
-        val s = ShowApi(Source.CARTOON).showInfoList
-        prettyLog(s.getEpisodeApi(8).episodeList.random().getVideoLink())
+        //val s = ShowApi(Source.CARTOON).showInfoList
+        //prettyLog(s.getEpisodeApi(8).episodeList.random().getVideoLink())
+        val s = ShowApi(Source.LIVE_ACTION).showInfoList
+        val ep = s.getEpisodeApi(4)
+        prettyLog(ep.episodeList)
+        prettyLog(ep.source.name)
+        prettyLog(ep.showDescription)
     }
 
     private fun prettyLog(msg: Any) {

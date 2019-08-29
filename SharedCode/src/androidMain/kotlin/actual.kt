@@ -1,3 +1,5 @@
+@file:Suppress("RegExpRedundantEscape")
+
 package com.jetbrains.handson.mpp.mobile
 import com.google.gson.Gson
 import com.google.gson.JsonParser
@@ -367,7 +369,6 @@ actual class EpisodeInfo actual constructor(name: String, url: String) : ShowInf
                             val g = Gson()
                             val d1 = g.fromJson(d, NormalLink::class.java)
                             urlList.add(d1.normal!!.storage!![0].link!!)
-
                         }
                     }
                     return urlList

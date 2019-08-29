@@ -1,4 +1,4 @@
-@file:Suppress("UNCHECKED_CAST")
+@file:Suppress("UNCHECKED_CAST", "RegExpRedundantEscape")
 
 package com.jetbrains.handson.mpp.mobile
 
@@ -193,7 +193,7 @@ actual class EpisodeApi actual constructor(val source: ShowInfo, timeOut: Int) {
 
                         val code = getHTMLCode(url)
 
-                        val s = SBJson5Parser.parserWithBlock(block = { res, boo ->
+                        val s = SBJson5Parser.parserWithBlock(block = { res, _ ->
                             val dict = res as NSDictionary
                             val year = dict.objectForKey("Year")
                             val released = dict.objectForKey("Released")
@@ -204,7 +204,6 @@ actual class EpisodeApi actual constructor(val source: ShowInfo, timeOut: Int) {
                             println(it)
                         }) as SBJson5Parser
                         s.parse(code.nsdata())
-
                         if (textToReturn == "asdf") {
                             throw Exception()
                         } else {
@@ -236,9 +235,7 @@ actual class EpisodeApi actual constructor(val source: ShowInfo, timeOut: Int) {
                     val des =
                         if (doc.querySelector("div#series_details span#full_notes") != null) {
                             doc.querySelector("div#series_details span#full_notes")!!.textContent.trim()
-                                .removeSuffix(
-                                    "less"
-                                )
+                                .removeSuffix("less")
                         } else {
                             val d =
                                 doc.querySelector("div#series_details div")!!.textContent.trim()
@@ -342,7 +339,7 @@ actual class EpisodeInfo actual constructor(name: String, url: String) : ShowInf
             val reg = "var video_links = (\\{.*?\\});".toRegex().find(videoHtml)
             val json = reg!!.groupValues.last()
             val j = Json.parse(NormalLink.serializer(), json)
-            return j.normal!!.storage!![0]!!.link!!
+            return j.normal!!.storage!![0].link!!
         }
     }
 
@@ -384,7 +381,7 @@ actual class EpisodeInfo actual constructor(name: String, url: String) : ShowInf
 
                         for (i in reg!!.groupValues) {
                             val j = Json.parse(NormalLink.serializer(), i)
-                            urlList += j.normal!!.storage!![0]!!.link!!
+                            urlList += j.normal!!.storage!![0].link!!
                         }
                     }
                     return urlList
