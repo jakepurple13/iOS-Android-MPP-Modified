@@ -1,0 +1,6 @@
+framework module Pods_KotlinIOSUITests {
+  umbrella header "Pods-KotlinIOSUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

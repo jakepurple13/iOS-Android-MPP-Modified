@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import SharedCode
 @testable import KotlinIOS
 
 class KotlinIOSTests: XCTestCase {
@@ -22,6 +23,15 @@ class KotlinIOSTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        //print(NSURL(string: Source.liveAction.link)?.absoluteString)
+        //ActualKt.getShows(source: Source.liveAction)
+        //let s = ActualKt.getShow(source: Source.liveAction)
+        let s = ShowApi(Source.liveAction)
+        print(s.showInfoList)
+        let s1 = ShowApi(Source.recentAnime)
+        print(s1.showInfoList)
+        let s2 = ShowApi(Source.recentCartoon)
+        print(s2.showInfoList)
     }
 
     func testPerformanceExample() {
@@ -30,5 +40,5 @@ class KotlinIOSTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
+    
 }

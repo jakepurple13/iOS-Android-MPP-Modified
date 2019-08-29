@@ -1,0 +1,9 @@
+${PODS_ROOT}/Target Support Files/Pods-KotlinIOS/Pods-KotlinIOS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
+${BUILT_PRODUCTS_DIR}/HTMLKit/HTMLKit.framework
+${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
+${BUILT_PRODUCTS_DIR}/SBJson5/SBJson5.framework
+${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework
+${BUILT_PRODUCTS_DIR}/SwipeTransition/SwipeTransition.framework
+${BUILT_PRODUCTS_DIR}/SwipeTransitionAutoSwipeBack/SwipeTransitionAutoSwipeBack.framework
+${BUILT_PRODUCTS_DIR}/SwipeTransitionAutoSwipeToDismiss/SwipeTransitionAutoSwipeToDismiss.framework

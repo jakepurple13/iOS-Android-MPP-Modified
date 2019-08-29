@@ -1,0 +1,68 @@
+PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - HTMLKit (3.1.0)
+  - Kingfisher (5.7.1)
+  - SBJson5 (5.0.0)
+  - SCLAlertView (0.8)
+  - SharedCode (1.0):
+    - AFNetworking (~> 3.2.0)
+    - HTMLKit
+    - SBJson5
+  - SwipeTransition (0.4.0)
+  - SwipeTransitionAutoSwipeBack (0.4.0):
+    - SwipeTransition (~> 0.4.0)
+  - SwipeTransitionAutoSwipeToDismiss (0.4.0):
+    - SwipeTransition (~> 0.4.0)
+
+DEPENDENCIES:
+  - Kingfisher (~> 5.0)
+  - SCLAlertView
+  - SharedCode (from `/Users/jrein/AndroidStudioProjects/mpp-ios-android/SharedCode`)
+  - SwipeTransition
+  - SwipeTransitionAutoSwipeBack
+  - SwipeTransitionAutoSwipeToDismiss
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - HTMLKit
+    - Kingfisher
+    - SBJson5
+    - SwipeTransitionAutoSwipeBack
+    - SwipeTransitionAutoSwipeToDismiss
+  trunk:
+    - SCLAlertView
+    - SwipeTransition
+
+EXTERNAL SOURCES:
+  SharedCode:
+    :path: "/Users/jrein/AndroidStudioProjects/mpp-ios-android/SharedCode"
+
+SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  HTMLKit: 4ed10a911462cbf972329ec6aaaa827208dfd70c
+  Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
+  SBJson5: 20d321dc587addeb3b21466d13de2f99dc8fe620
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
+  SharedCode: ca4726ac4b4db6c7a49dcdf7d7ad371fce5eea6e
+  SwipeTransition: 6c6a03e3706ba9c24221c5995671b460f27753b7
+  SwipeTransitionAutoSwipeBack: 467afdafe000a2a2470be81844b17f8f5e64f39e
+  SwipeTransitionAutoSwipeToDismiss: 00865eb5b2172f7fe244fb7d8fd818bbed9ff93c
+
+PODFILE CHECKSUM: 24b4cf5e179e67eb241db99c085e533731daaac0
+
+COCOAPODS: 1.8.0.beta.1

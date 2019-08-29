@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/musicGameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:textColor="#ffffff"
+    tools:context=".MusicGameActivity">
+
+    <TextView
+        android:id="@+id/whatToGuess"
+        android:text="Guessing"
+        android:textColor="#ffffff"
+        android:layout_above="@id/questionText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/score"
+        android:text="0/0"
+        android:textColor="#ffffff"
+        android:layout_margin="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/questionText"
+        android:text="TEXT GOES HERE"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/questionText"
+        android:layout_above="@id/nextQuestionButton"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonA"
+            android:gravity="start|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomButton"
+            android:text="(A)" />
+
+        <Button
+            android:id="@+id/buttonB"
+            style="@style/CustomButton"
+            android:gravity="start|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(B)" />
+
+        <Button
+            android:id="@+id/buttonC"
+            android:gravity="start|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomButton"
+            android:text="(C)" />
+
+        <Button
+            android:id="@+id/buttonD"
+            android:gravity="start|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomButton"
+            android:text="(D)" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/nextQuestionButton"
+        android:text="Next Question"
+        android:layout_alignParentBottom="true"
+        style="@style/CustomButton"
+        android:layout_margin="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
