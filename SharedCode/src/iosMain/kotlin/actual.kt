@@ -173,7 +173,6 @@ actual class EpisodeApi actual constructor(val source: ShowInfo, timeOut: Int) {
                 else -> doc.querySelector("div.left_col img[src^=http]#series_image")!!.getAttribute(
                     "src"
                 )
-
             }
         }
 
@@ -269,7 +268,7 @@ actual class EpisodeApi actual constructor(val source: ShowInfo, timeOut: Int) {
                         doc.querySelectorAll("div.col-lg-12 div.row a.btn-episode") as List<HTMLElement>
                     for (i in rowList) {
                         val ep = EpisodeInfo(
-                            i.textContent.trim(),
+                            i.getAttribute("title").trim(),
                             "https://www.putlocker.fyi/embed-src/${i.attributes.objectForKey("data-pid")}"
                         )
                         listOfShows.add(ep)

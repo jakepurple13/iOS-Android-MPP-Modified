@@ -3,19 +3,12 @@ package com.jetbrains.handson.mpp.mobile
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Switch
-import androidx.appcompat.app.AlertDialog
-import com.dkv.bubblealertlib.BblContentFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.dkv.bubblealertlib.BblDialogManager
 import com.dkv.bubblealertlib.ConstantsIcons
 import com.dkv.bubblealertlib.IAlertClickedCallBack
@@ -76,8 +69,6 @@ class MusicGameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_music_game)
 
-        val ar: Array<Array<Int>> = arrayOf()
-
         getInfo()
 
         buttonA.setOnClickListener {
@@ -115,6 +106,7 @@ class MusicGameActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getInfo() {
         BblDialogManager.showBblDialog(
             supportFragmentManager,
@@ -155,14 +147,10 @@ class MusicGameActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         100
                     }
-                    trackList = if (true) {
-                        TrackApi().getTrackByInfo(
-                            artistName = frag.edtLibName2.text.toString(),
-                            amount = amount
-                        ).toMutableList()
-                    } else {
-                        TrackApi().getTopTracks(ChartName.values().random(), amount).toMutableList()
-                    }
+                    trackList = TrackApi().getTrackByInfo(
+                        artistName = frag.edtLibName2.text.toString(),
+                        amount = amount
+                    ).toMutableList()
                     nextQuestion()
                 }
             }
@@ -183,11 +171,11 @@ class MusicGameActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun onClick(value: Int) {
         if (current == choices[value]) {
-            getButton(value)!!.text = "${getButton(correctTrack)!!.text} ✅"
             currentRight++
+            getButton(value)!!
         } else {
-            getButton(correctTrack)!!.text = "${getButton(correctTrack)!!.text} ✅"
-        }
+            getButton(correctTrack)!!
+        }.text = "${getButton(correctTrack)!!.text} ✅"
         nextQuestionButton.setNewColorEnable(true)
         enableButtons(false)
     }
@@ -218,10 +206,10 @@ class MusicGameActivity : AppCompatActivity() {
 
             correctTrack = listOfTracks.indexOf(current)
 
-            choices[0] = listOfTracks[0]//getChoice(listOfTracks[0])
-            choices[1] = listOfTracks[1]//getChoice(listOfTracks[1])
-            choices[2] = listOfTracks[2]//getChoice(listOfTracks[2])
-            choices[3] = listOfTracks[3]//getChoice(listOfTracks[3])
+            choices[0] = listOfTracks[0]
+            choices[1] = listOfTracks[1]
+            choices[2] = listOfTracks[2]
+            choices[3] = listOfTracks[3]
 
             GlobalScope.launch {
                 val qText = if (qChoice == QuestionChoice.NAME) {
