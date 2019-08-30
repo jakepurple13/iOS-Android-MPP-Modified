@@ -37,12 +37,28 @@ class BookVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        track("Book time!")
+    }
 
-        self.tableView.reloadData()
-        //self.tableView.register(BookTableViewCell.self, forCellReuseIdentifier: "BookTableViewCell")
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let alert = UIAlertController(title: "Search for a Book", message: "", preferredStyle: UIAlertController.Style.alert)
 
-        getBooks(search: "Cirque Du Freak")
+        alert.addTextField { (textField: UITextField!) -> Void in
+            textField.placeholder = "Enter Book Name"
+        }
 
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler: self.handleCancel))
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
+            self.getBooks(search: alert.textFields![0].text!)
+        }))
+        self.present(alert, animated: true, completion: {
+            track("Showing")
+        })
+    }
+
+    func handleCancel(alertView: UIAlertAction!) {
+        track("User click Cancel button")
     }
 
     private func getBooks(search: String) {
