@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.book_layout.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-
 class BookActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,33 +37,19 @@ class BookActivity : AppCompatActivity() {
         bookRV.requestFocus()
 
         val alert = AlertDialog.Builder(this)
-        val edittext = EditText(this@BookActivity)
+        val editText = EditText(this@BookActivity)
         alert.setTitle("Search for a Book")
-
-        alert.setView(edittext)
-
-        alert.setPositiveButton(
-            "Search"
-        ) { _, _ ->
-            //What ever you want to do with the value
-            getBooks(edittext.text.toString())
-        }
-
-        alert.setNegativeButton("Never Mind"
-        ) { _, _ ->
-            // what ever you want to do with No option.
-            finish()
-        }
-
+        alert.setView(editText)
+        alert.setPositiveButton("Search") { _, _ -> getBooks(editText.text.toString()) }
+        alert.setNegativeButton("Never Mind") { _, _ -> finish() }
         alert.show()
-
     }
 
     private fun getBooks(search: String) = GlobalScope.launch {
-        val books = searchForBook(search)
-        Log.d("asdf", "${books.size}")
-        runOnUiThread {
-            bookRV.adapter = BookAdapter(books as ArrayList<Book>, this@BookActivity)
+        searchForBook(search).apply {
+            runOnUiThread {
+                bookRV.adapter = BookAdapter(this as ArrayList<Book>, this@BookActivity)
+            }
         }
     }
 
@@ -73,24 +58,29 @@ class BookActivity : AppCompatActivity() {
 class BookAdapter(list: ArrayList<Book>, val context: Context) :
     DragSwipeAdapter<Book, BookHolder>(list) {
     override fun onBindViewHolder(holder: BookHolder, position: Int) {
-        val book = list[position]
-        holder.title.text = book.title
-        holder.subtitle.text = book.subtitle
-        holder.author.text = book.author
-        Picasso.get().load(book.getCoverUrl(CoverSize.MEDIUM))
-            .error(android.R.drawable.stat_notify_error)
-            .placeholder(android.R.drawable.stat_sys_upload).into(holder.cover)
+        holder.book = list[position]
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookHolder {
         return BookHolder(LayoutInflater.from(context).inflate(R.layout.book_layout, parent, false))
     }
-
 }
 
 class BookHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val title: TextView = itemView.bookTitle!!
-    val cover: ImageView = itemView.book_cover!!
-    val author: TextView = itemView.bookAuthor!!
-    val subtitle: TextView = itemView.bookSubtitle!!
+    private val title: TextView = itemView.bookTitle!!
+    private val cover: ImageView = itemView.book_cover!!
+    private val author: TextView = itemView.bookAuthor!!
+    private val subtitle: TextView = itemView.bookSubtitle!!
+    var book: Book? = null
+        set(value) {
+            field = value
+            if (book != null) {
+                title.text = book!!.title
+                subtitle.text = book!!.subtitle
+                author.text = book!!.author
+                Picasso.get().load(book!!.getCoverUrl(CoverSize.MEDIUM))
+                    .error(android.R.drawable.stat_notify_error)
+                    .placeholder(android.R.drawable.stat_sys_upload).into(cover)
+            }
+        }
 }

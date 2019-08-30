@@ -43,11 +43,9 @@ class BookVC: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let alert = UIAlertController(title: "Search for a Book", message: "", preferredStyle: UIAlertController.Style.alert)
-
         alert.addTextField { (textField: UITextField!) -> Void in
             textField.placeholder = "Enter Book Name"
         }
-
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler: self.handleCancel))
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
             self.getBooks(search: alert.textFields![0].text!)
@@ -69,11 +67,7 @@ class BookVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCell", for: indexPath) as! BookTableViewCell
-        print("\(#function) --- section = \(indexPath.section), row = \(indexPath.row)")
         cell.book = books[indexPath.row]
-        if (indexPath.row % 5 == 0) {
-            track(cell.bookTitle?.text ?? "null")
-        }
         return cell
     }
 
