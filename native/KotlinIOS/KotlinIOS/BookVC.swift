@@ -16,18 +16,30 @@ class BookTableViewCell: UITableViewCell {
     @IBOutlet weak var bookCover: UIImageView!
     @IBOutlet weak var bookSubtitle: UILabel!
     @IBOutlet weak var bookAuthor: UILabel!
+
+    var book: Book! {
+        didSet {
+            bookTitle?.text = book.title
+            bookSubtitle?.text = book.subtitle
+            bookAuthor?.text = book.author
+            bookCover?.kf.setImage(with: URL(string: book.getCoverUrl(size: CoverSize.medium)))
+        }
+    }
 }
 
-class BookVC: UITableViewController {//UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BookVC: UITableViewController {
 
-    var books = [Book]()
-
-    //@IBOutlet weak var tableView: UITableView!
+    var books = [Book]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.tableView.dataSource = self
-        //self.tableView.delegate = self
+
+        self.tableView.reloadData()
+        //self.tableView.register(BookTableViewCell.self, forCellReuseIdentifier: "BookTableViewCell")
 
         getBooks(search: "Cirque Du Freak")
 
@@ -36,38 +48,16 @@ class BookVC: UITableViewController {//UIViewController, UITableViewDataSource, 
     private func getBooks(search: String) {
         DispatchQueue.main.async {
             self.books = CommonKt.searchForBook(search: search)
-            self.tableView.register(BookTableViewCell.self, forCellReuseIdentifier: "BookTableViewCell")
-            self.tableView.reloadData()
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCell", for: indexPath) as! BookTableViewCell
-
         print("\(#function) --- section = \(indexPath.section), row = \(indexPath.row)")
-        // Fetches the appropriate meal for the data source layout.
-        let book = books[indexPath.row]
-
-        cell.bookTitle?.text = book.title
-        cell.bookSubtitle?.text = book.subtitle
-        cell.bookAuthor?.text = book.author
-        cell.bookCover?.kf.setImage(with: URL(string: book.getCoverUrl(size: CoverSize.medium)))
-
+        cell.book = books[indexPath.row]
         if (indexPath.row % 5 == 0) {
-            //track(book)
             track(cell.bookTitle?.text ?? "null")
         }
-
-        cell.tag = indexPath.row
-        /*cell.textLabel?.text = book.title
-        cell.textLabel?.numberOfLines = 20
-        cell.textLabel?.textColor = UIColor.white
-        cell.detailTextLabel?.text = "\(book.subtitle)\n\(book.author)"
-        cell.detailTextLabel?.numberOfLines = 20
-        cell.detailTextLabel?.textColor = UIColor.white
-        cell.imageView?.kf.setImage(with: URL(string: book.getCoverUrl(size: CoverSize.medium)))*/
-        cell.backgroundColor = UIColor.black
-
         return cell
     }
 
@@ -79,9 +69,7 @@ class BookVC: UITableViewController {//UIViewController, UITableViewDataSource, 
         return books.count
     }
 
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //super.tableView(tableView, didSelectRowAt: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
