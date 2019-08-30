@@ -358,11 +358,12 @@ data class Joke(val title: String, val joke: String, val date: String) {
     fun toJSONString(): String {
         return Json.stringify(serializer(), this)
     }
+
     @ThreadLocal
     companion object {
-        fun fromJSONString(json: String): Joke? = try{
+        fun fromJSONString(json: String): Joke? = try {
             Json.parse(serializer(), json)
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             null
         }
     }
@@ -385,7 +386,7 @@ fun getJokeOfTheDay(): Joke? {
                 date.toString().replace("\"", "")
             )
         }
-    } catch(e: Exception) {
+    } catch (e: Exception) {
         println(e.message)
     }
     return null
@@ -393,7 +394,7 @@ fun getJokeOfTheDay(): Joke? {
 
 fun searchForBook(search: String): List<Book> {
     val s = getJson("http://openlibrary.org/search.json?q=${search.replace(" ", "+")}")!!
-   return getBookInfo(s)
+    return getBookInfo(s)
 }
 
 enum class CoverSize(internal val size: String) {
@@ -401,20 +402,22 @@ enum class CoverSize(internal val size: String) {
 }
 
 data class Book(val title: String, val subtitle: String, val author: String, val coverId: String) {
-    fun getCoverUrl(size: CoverSize = CoverSize.MEDIUM) = "http://covers.openlibrary.org/b/id/$coverId-${size.size}.jpg"
+    fun getCoverUrl(size: CoverSize = CoverSize.MEDIUM) =
+        "http://covers.openlibrary.org/b/id/$coverId-${size.size}.jpg"
 }
 
 private fun getBookInfo(json: String): List<Book> {
     val jsonObj = Json(JsonConfiguration.Stable).parseJson(json).jsonObject
     val docs = jsonObj["docs"]!!.jsonArray
     val books = arrayListOf<Book>()
-    for(b in docs) {
+    for (b in docs) {
         val book = b.jsonObject
         val title = book["title"].toString().removeSurrounding("\"")
         val subtitle = book["subtitle"].toString().removeSurrounding("\"")
-        val author = book["author_name"]?.jsonArray?.content?.get(0).toString().removeSurrounding("\"")
+        val author =
+            book["author_name"]?.jsonArray?.content?.get(0).toString().removeSurrounding("\"")
         val coverId = book["cover_i"].toString()
-        books+=Book(title, subtitle, author, coverId)
+        books += Book(title, subtitle, author, coverId)
     }
     return books
 }

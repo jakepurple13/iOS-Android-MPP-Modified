@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
@@ -44,11 +43,7 @@ class MainActivity : AppCompatActivity() {
                     Calendar.YEAR
                 ) == cal2.get(Calendar.YEAR)
             val joke = if (!sameDay) {
-                getJokeOfTheDay() ?: Joke(
-                    "Sorry",
-                    "No Joke",
-                    "2000-1-1"
-                )
+                getJokeOfTheDay() ?: json
             } else {
                 json
             }
