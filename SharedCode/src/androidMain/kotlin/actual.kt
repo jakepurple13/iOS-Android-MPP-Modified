@@ -443,30 +443,26 @@ actual class EpisodeInfo actual constructor(name: String, url: String) : ShowInf
     }
 }
 
-actual fun getApiCalls(url: String): SnippetMessage {
-    val client = OkHttpClient()
-    val request = okhttp3.Request.Builder()
-        .url(url)
-        .get()
-        .build()
-    val response = client.newCall(request).execute()
-    if (response.code == 200) {
-        val resString = response.body!!.string()
-        return getObjFromJson(resString)
+fun <T> objectToJson(obj: T): String = Gson().toJson(obj)
+
+inline fun <reified T> jsonToObject(json: String): T? {
+    return try {
+        Gson().fromJson(json, T::class.java)
+    } catch(e: Exception) {
+        null
     }
-    throw Exception("Nope")
 }
 
-actual fun getApiSnippetCall(url: String): Snippet? {
+internal actual fun getJson(url: String): String? {
     val client = OkHttpClient()
     val request = okhttp3.Request.Builder()
         .url(url)
         .get()
         .build()
     val response = client.newCall(request).execute()
-    if (response.code == 200) {
-        val resString = response.body!!.string()
-        return getSnippetFromJson(resString)
+    return if (response.code == 200) {
+        response.body!!.string()
+    } else {
+        null
     }
-    throw Exception("Nope")
 }

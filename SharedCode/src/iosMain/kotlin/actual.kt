@@ -6,7 +6,9 @@ import cocoapods.HTMLKit.CSSSelector
 import cocoapods.HTMLKit.HTMLElement
 import cocoapods.HTMLKit.HTMLParser
 import cocoapods.SBJson5.SBJson5Parser
+import kotlinx.cinterop.ObjCClass
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.stringify
 import platform.Foundation.*
 import platform.UIKit.UIDevice
 
@@ -408,14 +410,8 @@ private fun NSData.string(): String? {
     return NSString.create(this, NSUTF8StringEncoding) as String?
 }
 
-internal actual fun getApiCalls(url: String): SnippetMessage {
-    val code = NSString.create(contentsOfURL = NSURL.URLWithString(url)!!)!!//.toString()
-    return getObjFromJson(code.toString())
-}
-
-internal actual fun getApiSnippetCall(url: String): Snippet? {
-    val code = NSString.create(contentsOfURL = NSURL.URLWithString(url)!!)!!//.toString()
-    return getSnippetFromJson(code.toString())
+internal actual fun getJson(url: String): String? {
+    return NSString.create(contentsOfURL = NSURL.URLWithString(url)!!).toString()
 }
 
 private fun prettyLog(msg: Any?) {

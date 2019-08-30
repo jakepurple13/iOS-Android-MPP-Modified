@@ -42,10 +42,10 @@ SPEC REPOS:
     - HTMLKit
     - Kingfisher
     - SBJson5
+    - SCLAlertView
     - SwipeTransitionAutoSwipeBack
     - SwipeTransitionAutoSwipeToDismiss
   trunk:
-    - SCLAlertView
     - SwipeTransition
 
 EXTERNAL SOURCES:

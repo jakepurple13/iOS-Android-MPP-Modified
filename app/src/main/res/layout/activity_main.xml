@@ -7,6 +7,20 @@
     android:background="#000000"
     tools:context=".MainActivity">
 
+
+
+    <TextView
+        android:id="@+id/jokeOfTheDay"
+        android:text="JOKE!"
+        android:layout_above="@id/tv"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:gravity="top|center"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/tv"
         android:textSize="25dp"
@@ -46,6 +60,16 @@
         android:text="Music Game"
         android:background="@android:color/transparent"
         android:layout_below="@id/cartoon"
+        android:textColor="#027AFF"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/books"
+        android:text="Find a Book"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/musicGame"
         android:textColor="#027AFF"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"

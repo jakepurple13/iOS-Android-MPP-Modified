@@ -114,8 +114,7 @@ class ShowTableViewController: UIViewController, UITableViewDataSource, UITableV
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShowTableViewCell", for: indexPath) as! ShowTableViewCell
-
-
+        print("\(#function) --- section = \(indexPath.section), row = \(indexPath.row)")
         // Fetches the appropriate meal for the data source layout.
         let show = filteredShows[indexPath.row]
 
@@ -142,15 +141,5 @@ class ShowTableViewController: UIViewController, UITableViewDataSource, UITableV
 
         self.present(nextViewController, animated: true, completion: nil)
     }
-
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
 
 }

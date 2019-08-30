@@ -6,8 +6,8 @@
 import Foundation
 import UIKit
 
-public func track(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
-    print("\(message) called from \(function) \(file):\(line)")
+public func track(_ message: Any?, file: String = #file, function: String = #function, line: Int = #line) {
+    print("\(message ?? "null") called from \(function) \(file):\(line)")
 }
 
 public enum Toast {

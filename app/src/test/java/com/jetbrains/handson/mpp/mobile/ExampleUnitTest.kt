@@ -23,6 +23,13 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun apiTest() {
+        //getXkcd(400)
+        //prettyLog(getJokeOfTheDay())
+        searchForBook("Cirque Du Freak")
+    }
+
+    @Test
     fun musicTest() {
         //val list = TrackApi().getTrackByInfo(artistName = "Ninja Sex Party", amount = 3).toMutableList()
         val list = TrackApi().getTrackByInfo(artistName = "twrp", amount = 3).toMutableList()
@@ -47,7 +54,7 @@ class ExampleUnitTest {
         prettyLog(ep.showDescription)
     }
 
-    private fun prettyLog(msg: Any) {
+    private fun prettyLog(msg: Any?) {
         //the main message to be logged
         var logged = msg.toString()
         //the arrow for the stack trace

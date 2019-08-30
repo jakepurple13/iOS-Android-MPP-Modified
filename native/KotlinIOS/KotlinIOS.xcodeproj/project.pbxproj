@@ -18,6 +18,7 @@
 		60B16DE91C2206077C516458 /* Loged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B16F50DAA558CEBCBE2700 /* Loged.swift */; };
 		98F404966D1DF383EA2C2CCF /* Pods_KotlinIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA7F12352A6621CE43B20F98 /* Pods_KotlinIOSTests.framework */; };
 		E782DB3231C9C38F30CDFD6C /* Pods_KotlinIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5BEA999689C14F12E18BFD /* Pods_KotlinIOSUITests.framework */; };
+		EF6E51F5231985DE002508B5 /* BookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6E51F4231985DE002508B5 /* BookVC.swift */; };
 		EFB1509B2315B647004DEF28 /* ShowTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB1509A2315B647004DEF28 /* ShowTableViewController.swift */; };
 		EFB1509E2315B992004DEF28 /* SharedCode.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFB1509D2315B992004DEF28 /* SharedCode.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EFB150A02316AC03004DEF28 /* EpisodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB1509F2316AC03004DEF28 /* EpisodeViewController.swift */; };
@@ -82,6 +83,7 @@
 		E59F0B96699BC2AF0A449132 /* Pods-KotlinIOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KotlinIOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KotlinIOSUITests/Pods-KotlinIOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E989411AE0B149B5B01AFEE5 /* Pods_KotlinIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KotlinIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA5BEA999689C14F12E18BFD /* Pods_KotlinIOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KotlinIOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF6E51F4231985DE002508B5 /* BookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookVC.swift; sourceTree = "<group>"; };
 		EFB1509A2315B647004DEF28 /* ShowTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowTableViewController.swift; sourceTree = "<group>"; };
 		EFB1509D2315B992004DEF28 /* SharedCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharedCode.framework; path = ../../SharedCode/build/cocoapods/framework/SharedCode.framework; sourceTree = "<group>"; };
 		EFB1509F2316AC03004DEF28 /* EpisodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				47729E0722F447C800B9B36B /* ViewController.swift */,
 				EFB1509A2315B647004DEF28 /* ShowTableViewController.swift */,
 				EFB1509F2316AC03004DEF28 /* EpisodeViewController.swift */,
+				EF6E51F4231985DE002508B5 /* BookVC.swift */,
 				EFB150A1231709C4004DEF28 /* MusicGameVC.swift */,
 				47729E0922F447C800B9B36B /* Main.storyboard */,
 				47729E0C22F447CA00B9B36B /* Assets.xcassets */,
@@ -438,6 +441,7 @@
 				47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */,
 				60B16DE91C2206077C516458 /* Loged.swift in Sources */,
 				EFB150A02316AC03004DEF28 /* EpisodeViewController.swift in Sources */,
+				EF6E51F5231985DE002508B5 /* BookVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

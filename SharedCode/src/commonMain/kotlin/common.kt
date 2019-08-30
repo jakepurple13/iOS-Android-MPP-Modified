@@ -4,7 +4,10 @@ import kotlinx.serialization.ContextualSerialization
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
-import kotlinx.serialization.json.content
+import kotlinx.serialization.parse
+import kotlinx.serialization.stringify
+import kotlin.jvm.JvmStatic
+import kotlin.native.concurrent.ThreadLocal
 
 expect fun platformName(): String
 
@@ -236,7 +239,6 @@ data class Snippet(
 
 @Serializable
 data class TrackList2(
-
     var track: Track
 )
 
@@ -245,15 +247,11 @@ data class SnippetMessage(
     var track_list: List<TrackList2>
 )
 
-internal expect fun getApiCalls(url: String): SnippetMessage
-
-internal expect fun getApiSnippetCall(url: String): Snippet?
-
 internal fun getApiInfo(url: String): SnippetMessage =
-    getApiCalls("https://api.musixmatch.com/ws/1.1/$url&apikey=67053f507ef88fc99c544f4d7052dfa8")
+    getObjFromJson(getJson("https://api.musixmatch.com/ws/1.1/$url&apikey=67053f507ef88fc99c544f4d7052dfa8")!!)
 
 internal fun getApiSnippet(url: String): Snippet? =
-    getApiSnippetCall("https://api.musixmatch.com/ws/1.1/$url&apikey=67053f507ef88fc99c544f4d7052dfa8")
+    getSnippetFromJson(getJson("https://api.musixmatch.com/ws/1.1/$url&apikey=67053f507ef88fc99c544f4d7052dfa8")!!)
 
 enum class ChartName(val value: String) {
     TOP("top"), HOT("hot"), MXMWEEKLY("mxmweekly"), MXMWEEKLY_NEW("mxmweekly_new")
@@ -344,3 +342,79 @@ class LyricApi {
 }
 
 fun String.isBlankOrEmpty(): Boolean = isBlank() || isEmpty()
+
+fun <T> checkMultiple(vararg args: T?, check: (T?) -> Boolean): Boolean {
+    return args.none(check)
+}
+
+internal expect fun getJson(url: String): String?
+
+fun getXkcd(num: Int) {
+    println(getJson("http://xkcd.com/$num/info.0.json"))
+}
+
+@Serializable
+data class Joke(val title: String, val joke: String, val date: String) {
+    fun toJSONString(): String {
+        return Json.stringify(serializer(), this)
+    }
+    @ThreadLocal
+    companion object {
+        fun fromJSONString(json: String): Joke? = try{
+            Json.parse(serializer(), json)
+        } catch(e: Exception) {
+            null
+        }
+    }
+}
+
+fun getJokeOfTheDay(): Joke? {
+    try {
+        val json = getJson("https://api.jokes.one/jod")
+        if (json != null) {
+            val jsonObj = Json(JsonConfiguration.Stable).parseJson(json).jsonObject
+            val contents = jsonObj["contents"]!!.jsonObject
+            val jokes = contents["jokes"]!!.jsonArray
+            val date = jokes.content[0].jsonObject["date"]!!
+            val joke = jokes.content[0].jsonObject["joke"]!!.jsonObject
+            val title = joke["title"]!!
+            val actualJoke = joke["text"]!!
+            return Joke(
+                title.toString().replace("\"", ""),
+                actualJoke.toString().replace("\"", ""),
+                date.toString().replace("\"", "")
+            )
+        }
+    } catch(e: Exception) {
+        println(e.message)
+    }
+    return null
+}
+
+fun searchForBook(search: String): List<Book> {
+    val s = getJson("http://openlibrary.org/search.json?q=${search.replace(" ", "+")}")!!
+   return getBookInfo(s)
+}
+
+enum class CoverSize(internal val size: String) {
+    SMALL("S"), MEDIUM("M"), LARGE("L")
+}
+
+data class Book(val title: String, val subtitle: String, val author: String, val coverId: String) {
+    fun getCoverUrl(size: CoverSize = CoverSize.MEDIUM) = "http://covers.openlibrary.org/b/id/$coverId-${size.size}.jpg"
+}
+
+private fun getBookInfo(json: String): List<Book> {
+    val jsonObj = Json(JsonConfiguration.Stable).parseJson(json).jsonObject
+    val docs = jsonObj["docs"]!!.jsonArray
+    val books = arrayListOf<Book>()
+    for(b in docs) {
+        val book = b.jsonObject
+        val title = book["title"].toString().removeSurrounding("\"")
+        val subtitle = book["subtitle"].toString().removeSurrounding("\"")
+        val author = book["author_name"]?.jsonArray?.content?.get(0).toString().removeSurrounding("\"")
+        val coverId = book["cover_i"].toString()
+        books+=Book(title, subtitle, author, coverId)
+    }
+    return books
+}

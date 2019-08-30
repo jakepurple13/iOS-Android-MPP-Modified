@@ -39,17 +39,17 @@ kotlin {
     val buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
     if (buildForDevice) {
         iosArm64("iOS64").binaries {
-            framework {
+            /*framework {
                 baseName = "SharedCode"
                 embedBitcode("disable")
-            }
+            }*/
             executable()
         }
         iosArm32("iOS32").binaries {
-            framework {
+            /*framework {
                 baseName = "SharedCode"
                 embedBitcode("disable")
-            }
+            }*/
             executable()
         }
 
